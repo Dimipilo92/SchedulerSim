@@ -42,9 +42,13 @@ public abstract class Scheduler {
 	}
 	
 	private void writeToCSV(String content, File testFile, String outputDirectory) throws FileNotFoundException {
+
+		char root = System.getProperty("user.dir").charAt(0);
+		String slash = (root == 'C')?"\\":"/";
+		
 		String fullName = testFile.getName();
 		String fileName = fullName.substring(0, fullName.lastIndexOf('.'));
-		PrintWriter pw = new PrintWriter(new File(outputDirectory+"\\"+getSchedulerName()+"-"+fileName+".csv"));
+		PrintWriter pw = new PrintWriter(new File(outputDirectory+slash+getSchedulerName()+"-"+fileName+".csv"));
 		pw.write(content);
 		pw.close();
 	}

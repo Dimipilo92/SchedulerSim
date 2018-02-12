@@ -77,13 +77,17 @@ public class Driver {
 	}
 	
 	private static String absoluteDirectory(String relativeDir) {
+		char root = System.getProperty("user.dir").charAt(0);
+		
 		String absoluteDirectory;
-		if (relativeDir.charAt(0) == 'C') {
+		if (relativeDir.charAt(0) == root) {
 			absoluteDirectory = relativeDir;
 		}
 		else {
 			String callingPath = System.getProperty("user.dir");
-			absoluteDirectory = callingPath+"\\"+relativeDir;
+			absoluteDirectory = (root == 'C')?
+					callingPath+"\\"+relativeDir:
+						callingPath+"/"+relativeDir;
 		}
 		return absoluteDirectory;
 	}
