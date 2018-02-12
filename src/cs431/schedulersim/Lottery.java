@@ -11,16 +11,16 @@ public class Lottery extends RoundRobin {
 		if (processList.isEmpty()){
 			return -1;
 		}
-		int totalBurst = 0;
+		int totalPriority = 0;
 		for (Process p: processList) {
-			totalBurst+=p.getBurstTime();
+			totalPriority+=p.getPriority();
 		}
-		int selection = (int) (Math.random()*totalBurst);
+		int selection = (int) (Math.random()*totalPriority);
 		
 		int total = 0;
 		int i = 0; 
 		while (selection < total) {
-			total+=processList.get(i).getBurstTime();
+			total+=processList.get(i).getPriority();
 			i++;
 		}
 		
