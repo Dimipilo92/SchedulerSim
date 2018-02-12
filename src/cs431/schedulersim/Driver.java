@@ -7,20 +7,38 @@ public class Driver {
 	
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
-		Driver.run();
+		String inputDirectory = absoluteDirectory(args[0]);
+		String outputDirectory = absoluteDirectory(args[1]);
+		System.out.println(inputDirectory);
+		System.out.println(outputDirectory);
+		
+		File[] testFiles = getTestFiles(inputDirectory);
+		
+		Driver.run(testFiles, outputDirectory);
+		
+		//Driver.run()
 	}
 	
-	public static String[] getTestFiles() {
-		return new String[] {
-				"C:\\Users\\LENOVO USER\\Desktop\\projectdata\\testdata1.txt",
-				"C:\\Users\\LENOVO USER\\Desktop\\projectdata\\testdata2.txt",
-				"C:\\Users\\LENOVO USER\\Desktop\\projectdata\\testdata3.txt",
-				"C:\\Users\\LENOVO USER\\Desktop\\projectdata\\testdata4.txt"
-		};
+	private static String absoluteDirectory(String relativeDir) {
+		String absoluteDirectory;
+		if (relativeDir.charAt(0) == 'C') {
+			absoluteDirectory = relativeDir;
+		}
+		else {
+			String callingPath = System.getProperty("user.dir");
+			absoluteDirectory = callingPath+"\\"+relativeDir;
+		}
+		return absoluteDirectory;
 	}
 	
-	public static void run() throws Exception{
-		String[] testFiles = getTestFiles();
+	public static File[] getTestFiles(String inputDirectory) {
+		File directory = new File(inputDirectory);
+		File[] listOfFiles = directory.listFiles();
+		return directory.listFiles();
+	}
+	
+	public static void run(File[] testFiles, String outputPath) throws Exception{
+		//String[] testFiles = getTestFiles();
 		Scheduler[] schedulerList = {
 				new FCFS(),
 				new SJF(),
@@ -29,10 +47,10 @@ public class Driver {
 				new Lottery(25)
 		};
 		
-		for (String fileName : testFiles) {
+		for (File file : testFiles) {
 			for(Scheduler scheduler : schedulerList) {
-				List<Process> processList = ProcessListCreator.readFile(fileName);
-				scheduler.run(processList, new File(fileName));
+				List<Process> processList = ProcessListCreator.readFile(file);
+				scheduler.run(processList, file);
 			}
 		}
 	}

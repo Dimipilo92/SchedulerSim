@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ProcessListCreator {
-	public static List<Process> readFile(String fileName) throws FileNotFoundException{
-		Scanner fileReader = new Scanner(new File(fileName));
+	public static List<Process> readFile(File file) throws FileNotFoundException{
+		Scanner fileReader = new Scanner(file);
 		List<Process> processList = new ArrayList<Process>();
 		
 		while (fileReader.hasNext()) {
