@@ -6,8 +6,10 @@ public class Lottery extends RoundRobin {
 	public Lottery(int rrTime) {
 		super(rrTime);
 	}
-
+	
+	@Override
 	protected int getNextIndex(int currentIndex) {
+		
 		if (processList.isEmpty()){
 			return -1;
 		}
@@ -15,16 +17,15 @@ public class Lottery extends RoundRobin {
 		for (Process p: processList) {
 			totalPriority+=p.getPriority();
 		}
-		int selection = (int) (Math.random()*totalPriority);
-		
+		int target = (int) (Math.random()*totalPriority);
 		int total = 0;
 		int i = 0; 
-		while (selection < total) {
+		while (total < target) {
 			total+=processList.get(i).getPriority();
 			i++;
 		}
 		
-		return i;
+		return (target == 0)? 0 : i-1;
 	}
 	
 	protected String getSchedulerName() {
