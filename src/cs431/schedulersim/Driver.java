@@ -70,8 +70,11 @@ public class Driver {
 	
 	private static void validateDirectory(String dir){
 		File f = new File(dir);
+		if (f.isFile()){
+			System.out.println(f.getAbsolutePath()+" is a file. You must use a directory.");
+		}
 		if (!f.isDirectory()) {
-			System.out.println(f.getAbsolutePath()+" is not a valid directory!");
+			System.out.println(f.getAbsolutePath()+" is not a valid directory.");
 			System.exit(1);
 		}
 	}
