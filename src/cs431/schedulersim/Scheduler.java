@@ -17,7 +17,20 @@ public abstract class Scheduler {
 		completionTimes = new ArrayList<Integer>();
 	}
 	
-	public abstract void run(List<Process> processList, File testFile) throws FileNotFoundException ;
+	public void simulate(List<Process> processList, File testFile, String outputDirectory) throws FileNotFoundException {
+		String content = run(processList);
+		writeToCSV(content,testFile,outputDirectory);
+	}
+	
+	public double getAverageCompletionTime() {
+		int total=0;
+		for (Integer t : completionTimes) {
+			total+=t;
+		}
+		return (double)total/(double)completionTimes.size();
+	}
+	
+	protected abstract String run(List<Process> processList);
 
 	protected abstract String getSchedulerName();
 	
@@ -28,19 +41,10 @@ public abstract class Scheduler {
 		}
 	}
 	
-	protected int getAverageCompletionTime() {
-		int total=0;
-		for (Integer t : completionTimes) {
-			total+=t;
-		}
-		return total/completionTimes.size();
-	}
-	
-	protected void writeToCSV(String content, File testFile) throws FileNotFoundException {
-		String parent = testFile.getParent();
+	private void writeToCSV(String content, File testFile, String outputDirectory) throws FileNotFoundException {
 		String fullName = testFile.getName();
 		String fileName = fullName.substring(0, fullName.lastIndexOf('.'));
-		PrintWriter pw = new PrintWriter(new File(parent+"\\"+getSchedulerName()+"-"+fileName+".csv"));
+		PrintWriter pw = new PrintWriter(new File(outputDirectory+"\\"+getSchedulerName()+"-"+fileName+".csv"));
 		pw.write(content);
 		pw.close();
 	}

@@ -1,14 +1,12 @@
 package cs431.schedulersim;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Comparator;
 import java.util.List;
 
 public class SJF extends FCFS{
 	
 	@Override
-	public void run(List<Process> input, File testFile) throws FileNotFoundException {
+	public String run(List<Process> input){
 		copyProcesses(input);
 		processList.sort(new Comparator<Process>() {
 			@Override
@@ -17,8 +15,7 @@ public class SJF extends FCFS{
 			}
 		});
 		
-		String results = runProcesses();
-		writeToCSV(results.toString(),testFile);
+		return runProcesses();
 	}
 	
 	@Override

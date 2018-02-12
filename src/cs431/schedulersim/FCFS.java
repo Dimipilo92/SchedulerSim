@@ -1,15 +1,12 @@
 package cs431.schedulersim;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 public class FCFS extends Scheduler {
 	
-	public void run(List<Process> input, File testFile) throws FileNotFoundException {
+	public String run(List<Process> input) {
 		copyProcesses(input);
-		String results = runProcesses();
-		writeToCSV(results.toString(),testFile);
+		return runProcesses();
 	}
 	
 	protected String runProcesses() {
