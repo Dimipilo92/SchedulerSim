@@ -47,7 +47,7 @@ public class Driver {
 				new SJF(),
 				new RoundRobin(25),
 				new RoundRobin(50),
-				new Lottery(25)};
+				new Lottery(50)};
 	}
 	
 	private static String[] getDirectoriesFromArguments(String[] args) {

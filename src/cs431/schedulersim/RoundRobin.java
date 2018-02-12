@@ -3,7 +3,7 @@ package cs431.schedulersim;
 import java.util.List;
 
 public class RoundRobin extends Scheduler {
-	private int rrTime;
+	protected int rrTime;
 	public RoundRobin(int rrTime){
 		super();
 		this.rrTime = rrTime;

@@ -28,6 +28,6 @@ public class Lottery extends RoundRobin {
 	}
 	
 	protected String getSchedulerName() {
-		return "Lottery";
+		return "Lottery"+rrTime;
 	}
 }
